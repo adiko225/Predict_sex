@@ -11,9 +11,10 @@ model = pickle.load(open('model.pkl', 'rb'))
 @app.route('/predict',methods=['POST'])
 
 
-alphabet=list(string.ascii_lowercase)
+
 
 def encod_names(name):
+  alphabet=list(string.ascii_lowercase)
   name_split=list(name)
   name_encoded=[alphabet.index(name_split[i]) for i in range(len(name_split))]
   if len(name_encoded)<50:
