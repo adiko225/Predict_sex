@@ -36,6 +36,8 @@ data["gender"]= data["gender"].apply(encod_sex)
 
 alphabet=list(string.ascii_lowercase)
 
+alphabet=alphabet+[" "]
+
 def encod_names(name):
     name_split=list(name)
     name_encoded=[alphabet.index(name_split[i])+1 for i in range(len(name_split))]
@@ -57,7 +59,7 @@ data["name_encoded"]=data["name_encoded"].apply(comp_list)
 #print(data.head())
 ## Entrainement du modele
 
-def lstm_model(num_alphabets=27, name_length=50, embedding_dim=256):
+def lstm_model(num_alphabets=28, name_length=50, embedding_dim=256):
     model = Sequential([
         Embedding(num_alphabets, embedding_dim, input_length=name_length),
         Bidirectional(LSTM(units=128, recurrent_dropout=0.2, dropout=0.2)),
@@ -71,7 +73,7 @@ def lstm_model(num_alphabets=27, name_length=50, embedding_dim=256):
     return model
 
 # Step 1: Instantiate the model
-model = lstm_model(num_alphabets=27, name_length=50, embedding_dim=256)
+model = lstm_model(num_alphabets=28, name_length=50, embedding_dim=256)
 
 # Step 2: Split Training and Test Data
 X = np.asarray(data['name_encoded'].tolist())

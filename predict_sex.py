@@ -6,6 +6,10 @@ import string
 ## All the alphabetic charater
 alphabet=list(string.ascii_lowercase)
 
+alphabet=alphabet+[" "]
+
+print("the lastest element in alphabet is ", f"this {alphabet[-1]}")
+
 model=tf.keras.models.load_model("predict_name.h5")
 
 
@@ -33,9 +37,9 @@ def nametonum(name: str):
 ### function to predict
 
 def predict_name(name: str):
-    name=np.array(nametonum("aziz"))
+    name=np.array(nametonum(name))
     p=model.predict(name)
-    if p[0][0]>.20:
-        return 'Male'
+    if p[0][0]>.3:
+        return 'Male', p
     else:
-        return 'Female'
+        return 'Female', 1-p
